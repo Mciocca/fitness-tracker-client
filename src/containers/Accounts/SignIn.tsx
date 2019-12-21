@@ -2,7 +2,11 @@ import React from 'react';
 import Request from '../../utils/request';
 import AlertMessage from '../../components/common/AlertMessage';
 import { RouteComponentProps } from 'react-router';
-
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import { Link } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 class SignIn extends React.Component<RouteComponentProps> {
   public state = {
     email: '',
@@ -10,7 +14,7 @@ class SignIn extends React.Component<RouteComponentProps> {
     errors: []
   }
 
-  private onChange = (event: React.FormEvent<HTMLInputElement>) => {
+  private onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.currentTarget.name;
     const value = event.currentTarget.value;
 
@@ -35,26 +39,54 @@ class SignIn extends React.Component<RouteComponentProps> {
   }
 
   render() {
+    const formStyles = {
+      marginBottom: '1rem'
+    }
+
     return (
-      <div>
+      <Container component="main" maxWidth="xs">
         { this.state.errors.length > 0 &&
           <AlertMessage errors={this.state.errors} />
         }
-        <form>
-          <div className="form-item">
-             <label htmlFor="login-email">Email</label>
-             <input id="login-email" onChange={this.onChange} name="email" type="text" value={this.state.email} />
-          </div>
-          <div className="form-item">
-            <label htmlFor="login-password">Password</label>
-            <input id="login-password" onChange={this.onChange} name="password" type="password" value={this.state.password}/>
-          </div>
+        <Typography component="h1" variant="h4" align="center" >
+          Sign in
+        </Typography>
+        <form onSubmit={this.submit}  style={formStyles}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            onChange={this.onChange}
+            autoFocus />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="password"
+            type="password"
+            label="Password"
+            name="password"
+            onChange={this.onChange} />
 
-          <div className="form-item">
-            <button onClick={this.submit}>Login</button>
-          </div>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary">
+            Submit
+          </Button>
         </form>
-      </div>
+
+        <Typography variant="body1">
+          Don't have an account? <Link to="/register">Register</Link>
+        </Typography>
+      </Container>
     )
   }
 }

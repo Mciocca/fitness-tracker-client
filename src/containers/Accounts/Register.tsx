@@ -2,6 +2,8 @@ import React, { Component, FormEvent } from 'react';
 import Request from '../../utils/request';
 import AlertMessage from '../../components/common/AlertMessage';
 import { RouteComponentProps } from 'react-router';
+import { Link } from 'react-router-dom';
+import { Button, Container, TextField, Typography, makeStyles } from '@material-ui/core';
 
 class Register extends Component<RouteComponentProps> {
   public state = {
@@ -12,7 +14,7 @@ class Register extends Component<RouteComponentProps> {
     errors: []
   }
 
-  private onChange = (event: FormEvent<HTMLInputElement>) => {
+  private onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.currentTarget.name;
     const value = event.currentTarget.value;
 
@@ -39,33 +41,74 @@ class Register extends Component<RouteComponentProps> {
   }
 
   render() {
+    const formStyles = {
+      marginBottom: '1rem'
+    }
+
     return (
-      <div>
+      <Container component="main" maxWidth="xs">
         { this.state.errors.length > 0 &&
           <AlertMessage errors={this.state.errors} />
         }
+        <Typography component="h1" variant="h4" align="center">
+          Register
+        </Typography>
 
-        <form id="registration-form" onSubmit={this.submit}>
-          <div className="form-item">
-            <label htmlFor="firstName">First Name</label>
-            <input type="text" id="firstName" onChange={this.onChange} name="firstName" value={this.state.firstName}/>
-          </div>
-          <div className="form-item">
-            <label htmlFor="lastName">Last Name</label>
-            <input type="text" id="lastName" onChange={this.onChange} name="lastName" value={this.state.lastName}/>
-          </div>
-          <div className="form-item">
-            <label htmlFor="email">Email</label>
-            <input type="text" id="email" onChange={this.onChange} name="email" value={this.state.email}/>
-          </div>
-          <div className="form-item">
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" onChange={this.onChange} name="password" value={this.state.password}/>
-          </div>
+        <form onSubmit={this.submit} style={formStyles}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="registration-form__first-name"
+            label="First Name"
+            name="firstName"
+            onChange={this.onChange}
+            autoFocus/>
 
-          <button>Submit</button>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="registration-form__last-name"
+            label="Last Name"
+            name="lastName"
+            onChange={this.onChange}/>
+
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="registration-form__email"
+            label="email"
+            name="email"
+            onChange={this.onChange}/>
+
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="registration-form__last-password"
+            label="Password"
+            name="password"
+            type="password"
+            onChange={this.onChange}/>
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary">
+              Submit
+          </Button>
         </form>
-      </div>
+        <Typography variant="body1">
+          Already have an account? <Link to="/sign-in">Sign in</Link>
+        </Typography>
+      </Container>
     )
   }
 }
