@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { RouteComponentProps } from 'react-router';
 
-export default class Dasboard extends Component<RouteComponentProps> {
+export default class Dasboard extends Component {
   render() {
     return (
       <div>
