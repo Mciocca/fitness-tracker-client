@@ -1,13 +1,18 @@
 import React from 'react';
 import Request from '../../utils/request';
 import AlertMessage from '../../components/common/AlertMessage';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-class SignIn extends React.Component<RouteComponentProps> {
+
+interface SignInProps extends RouteComponentProps {
+  authenticationLink: string,
+}
+
+export class SignIn extends React.Component<SignInProps> {
   public state = {
     email: '',
     password: '',
@@ -91,4 +96,4 @@ class SignIn extends React.Component<RouteComponentProps> {
   }
 }
 
-export default SignIn;
+export default  withRouter(SignIn);

@@ -1,11 +1,14 @@
 import React, { Component, FormEvent } from 'react';
 import Request from '../../utils/request';
 import AlertMessage from '../../components/common/AlertMessage';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Button, Container, TextField, Typography, makeStyles } from '@material-ui/core';
+import { Button, Container, TextField, Typography } from '@material-ui/core';
 
-class Register extends Component<RouteComponentProps> {
+interface RegisterProps {
+  registrationLink: string
+}
+export class Register extends Component<RegisterProps & RouteComponentProps> {
   public state = {
     firstName: '',
     lastName: '',
@@ -33,7 +36,8 @@ class Register extends Component<RouteComponentProps> {
     }
 
     try {
-      await Request.post('/registration', data);
+      const link = this.props.registrationLink;
+      await Request.post(link, data);
       this.props.history.push('/dashboard');
     } catch (error) {
       this.setState({ errors: error.errors });
@@ -113,4 +117,4 @@ class Register extends Component<RouteComponentProps> {
   }
 }
 
-export default Register;
+export default withRouter(Register);
