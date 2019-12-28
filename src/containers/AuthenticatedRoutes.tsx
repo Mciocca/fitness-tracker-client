@@ -2,16 +2,15 @@ import { connect } from 'react-redux';
 import { userAction } from '../actions/userActions';
 import React from 'react';
 import Request from '../utils/request';
-import { Store, ConfigurationLinks } from '../reducers/types';
 import Dashboard from './Dashboard';
 import { showLoading, hideLoading } from '../actions/uiActions';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 interface AuthenticatedRoutesProps extends RouteComponentProps {
-  links: ConfigurationLinks,
   showLoading: Function,
   hideLoading: Function,
-  userAction: Function
+  userAction: Function,
+  userUrl: string
 }
 
 export class AuthenticatedRoutes extends React.Component<AuthenticatedRoutesProps> {
@@ -21,34 +20,27 @@ export class AuthenticatedRoutes extends React.Component<AuthenticatedRoutesProp
 
   async componentDidMount() {
     this.props.showLoading();
-
     try {
-      debugger;
-      const { user } = await Request.get(this.props.links.user_url);
+      const { user } = await Request.get(this.props.userUrl);
       this.props.userAction(user);
-      this.setState({ userAuthenticated: true })
+      this.setState({ userAuthenticated: true });
     } catch(e) {
-      debugger;
       this.props.history.push('/sign-in');
+    } finally {
+      this.props.hideLoading();
     }
-
-    this.props.hideLoading();
   }
 
   render() {
     return (
-      <>
+      <React.Fragment>
         { this.state.userAuthenticated  &&
           <Dashboard />
         }
-      </>
+      </React.Fragment>
     )
   }
 }
 
-const mapStateToProps = (state: Store ) => ({
-  links: state.config.links
-});
-
 const component = withRouter(AuthenticatedRoutes);
-export default connect(mapStateToProps, { userAction, showLoading, hideLoading })(component)
+export default connect(null, { userAction, showLoading, hideLoading })(component)

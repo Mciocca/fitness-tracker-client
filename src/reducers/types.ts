@@ -10,11 +10,6 @@ export interface ConfigurationLinks {
   registration_url: string
 }
 
-export interface ConfigurationReducerAction {
-  type: string
-  links: ConfigurationLinks
-}
-
 export interface ConfigurationState {
   links: ConfigurationLinks
 }

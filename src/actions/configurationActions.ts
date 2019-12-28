@@ -1,8 +1,9 @@
 import * as actions from './actionTypes';
+import { ConfigAction } from './actionTypes'
 
-export const linksAction = (links: object) => {
+export const setConfiguration = (config: object): ConfigAction => {
   return {
-    links,
-    type: actions.RESOURCE_LINKS
+    type: actions.CONFIGURATION,
+    configuration: config
   }
 }

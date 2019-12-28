@@ -1,7 +1,6 @@
-import { ConfigurationReducerAction, ConfigurationState } from "./types";
+import { ConfigurationState } from "./types";
 import * as ActionTypes from '../actions/actionTypes';
 
-// TODO: Find a better way of loading links to make typescript happy
 const defaultState = {
   links: {
     user_url: '',
@@ -9,11 +8,10 @@ const defaultState = {
     registration_url: ''
   }
 }
-
-export default (state: ConfigurationState=defaultState, action: ConfigurationReducerAction) => {
+export default (state: ConfigurationState=defaultState, action: ActionTypes.ConfigAction) => {
   switch(action.type) {
-     case ActionTypes.RESOURCE_LINKS:
-      return {...state, links: action.links}
+     case ActionTypes.CONFIGURATION:
+      return {...state, ...action.configuration}
 
     default:
       return state;
