@@ -5,6 +5,7 @@ import Request from '../utils/request';
 import Dashboard from './Dashboard';
 import { showLoading, hideLoading } from '../actions/uiActions';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { User } from '../reducers/types';
 
 interface AuthenticatedRoutesProps extends RouteComponentProps {
   showLoading: Function,
@@ -13,9 +14,13 @@ interface AuthenticatedRoutesProps extends RouteComponentProps {
   userUrl: string
 }
 
-export class AuthenticatedRoutes extends React.Component<AuthenticatedRoutesProps> {
+interface AuthenticatedRoutesState {
+  user: User | null
+}
+
+export class AuthenticatedRoutes extends React.Component<AuthenticatedRoutesProps, AuthenticatedRoutesState> {
   state = {
-    userAuthenticated: false
+    user: null
   }
 
   async componentDidMount() {
@@ -23,7 +28,7 @@ export class AuthenticatedRoutes extends React.Component<AuthenticatedRoutesProp
     try {
       const { user } = await Request.get(this.props.userUrl);
       this.props.userAction(user);
-      this.setState({ userAuthenticated: true });
+      this.setState({ user });
     } catch(e) {
       this.props.history.push('/sign-in');
     } finally {
@@ -34,7 +39,7 @@ export class AuthenticatedRoutes extends React.Component<AuthenticatedRoutesProp
   render() {
     return (
       <React.Fragment>
-        { this.state.userAuthenticated  &&
+        { this.state.user &&
           <Dashboard />
         }
       </React.Fragment>
