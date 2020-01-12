@@ -19,8 +19,9 @@ export default class Request {
       headers: {
         'Connection': 'keep-alive',
         'Content-Type': 'application/json',
+        'csrf-token': csrfToken() || ''
       },
-      body: JSON.stringify({ ...body, _csrf: csrfToken() })
+      body: JSON.stringify({ ...body })
     });
 
     try {
@@ -34,7 +35,7 @@ export default class Request {
 
 const csrfToken = (): string | undefined => {
   const cookies = decodeURIComponent(document.cookie).split(';');
-  const token = cookies.find(cookie => cookie.includes('_csrf'));
+  const token = cookies.find(cookie => cookie.includes('XSRF-TOKEN'));
 
   if (token) {
     return token.split('=')[1]
