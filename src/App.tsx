@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import SignIn from './containers/Accounts/SignIn';
 import Register from './containers/Accounts/Register';
-import Loading from './components/Loading';
 import { Store, ConfigurationLinks } from './reducers/types';
 import AuthenticatedRoutes from './containers/AuthenticatedRoutes';
 import { setConfiguration } from './actions/configurationActions';
@@ -22,7 +21,6 @@ const App: React.FC<AppProps> = ({ showLoading, setConfiguration, config, links}
 
   return (
     <div className="App">
-      <Loading showLoading={showLoading} />
       <Switch>
         <Redirect exact from="/" to="/sign-in" />
         <Route path="/sign-in">
