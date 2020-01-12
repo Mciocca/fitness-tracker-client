@@ -1,9 +1,24 @@
 export interface User {
   id: number,
   name: string,
-  email: string
+  profile: Profile,
+  firstName: string,
+  lastName: string,
+  email: string,
+  updateUrl: string
 }
 
+export interface Profile {
+  age?: number,
+  startingWeight?: number,
+  goal?: string,
+  gender?: string,
+  height?: number,
+  options: {
+    gender: string[],
+    goals: string[]
+  }
+}
 export interface ConfigurationLinks {
   user_url: string,
   authentication_url: string,
