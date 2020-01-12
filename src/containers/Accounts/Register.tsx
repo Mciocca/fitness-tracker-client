@@ -1,7 +1,7 @@
 import React, { Component, FormEvent } from 'react';
 import Request from '../../utils/request';
 import AlertMessage from '../../components/common/AlertMessage';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Button, Container, TextField, Typography } from '@material-ui/core';
 
