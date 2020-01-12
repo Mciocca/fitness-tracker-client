@@ -6,11 +6,9 @@ interface LoadingProps  {
 }
 
 const Loading: React.FC<LoadingProps> = ({ showLoading }) => {
-  if(!showLoading) return null;
-
   return (
-    <div className="loading-wrapper">
-      <LinearProgress />
+    <div style={{height: '5px'}}>
+      { showLoading && <LinearProgress /> }
     </div>
   );
 }
