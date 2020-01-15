@@ -1,3 +1,5 @@
+import { NotificationSeverity } from '../actions/actionTypes';
+
 export interface User {
   id: number,
   name: string,
@@ -38,12 +40,13 @@ export interface UserState {
   user?: User
 }
 
-export interface UIReducerAction {
-  type: string,
-}
-
 export interface UIState {
-  showLoading: boolean
+  showLoading: boolean,
+  showNotification: boolean,
+  notification: {
+    message: string,
+    severity: NotificationSeverity
+  }
 }
 
 export interface Store  {
