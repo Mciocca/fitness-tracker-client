@@ -1,9 +1,20 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Notification from '../Notification';
+import router from 'react-router';
 
 describe('Notification', () => {
   let hideNotification: any;
+  const mockLocation = {
+    pathname: '/fake',
+    hash: '',
+    search: '',
+    state: ''
+  }
+
+  beforeAll(() => {
+    jest.spyOn(router, 'useLocation').mockReturnValue(mockLocation)
+  });
 
   beforeEach(() => {
     hideNotification = jest.fn();
@@ -11,6 +22,11 @@ describe('Notification', () => {
 
   afterEach(() => {
     hideNotification.mockClear();
+  });
+
+  // TODO: figure out if jest cleans up after itself or I actually need todo this
+  afterAll(() => {
+    jest.restoreAllMocks();
   });
 
   it('is visible when open prop is false', () => {

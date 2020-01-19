@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Close from '@material-ui/icons/Close';
 import { Snackbar, IconButton, createStyles, makeStyles, Theme } from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
 import { NotificationSeverity } from '../../actions/actionTypes';
+import { useLocation } from 'react-router-dom';
 
 interface NotificationBar {
   message: string,
@@ -27,7 +28,12 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const Notification: React.FC<NotificationBar> = ({ message, severity, open, hideNotification }) => {
+  const location = useLocation();
   const classes = useStyles();
+  useEffect(() => {
+    hideNotification();
+  },[location]);
+
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') return;
 
