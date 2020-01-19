@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { updateUser } from '../actions/userActions';
+import Request from "../utils/request"
+import { userAction } from '../actions/userActions';
+import { showLoading, hideLoading, showNotification } from '../actions/uiActions';
 import { User, Store } from '../reducers/types';
 import {
   Typography,
@@ -16,10 +18,15 @@ import {
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import LoadingButton from '../components/common/LoadingButton';
+import AlertMessage from '../components/common/AlertMessage';
+import { NotificationSeverity } from '../actions/actionTypes';
 
 interface ProfileProps {
   user: User,
-  loading: boolean
+  loading: boolean,
+  showNotification: (message: string, severity: NotificationSeverity) => void,
+  showLoading: () => void,
+  hideLoading: () => void,
   updateUser: (user: User) => void
 }
 
@@ -38,10 +45,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Profile: React.FC<ProfileProps> = ({ user, updateUser, loading }) => {
+export const Profile: React.FC<ProfileProps> = ({ user, updateUser, showNotification, showLoading, hideLoading, loading }) => {
   const classes = useStyles();
   const [userInputs, setUser] = useState({ ...user });
   const [profileInputs, setProfile] = useState({ ...user.profile })
+  const [errors, setErrors] = useState<string[]>([]);
 
   const updateUserFields = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setUser({...userInputs, [event.target.name]: event.target.value });
@@ -51,10 +59,19 @@ const Profile: React.FC<ProfileProps> = ({ user, updateUser, loading }) => {
     setProfile({...profileInputs, [event.target.name]: event.target.value });
   }
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<any> => {
     event.preventDefault();
-    const userData = { ...userInputs, profile: { ...profileInputs } };
-    updateUser(userData);
+    showLoading();
+    const updatedUser = { ...userInputs, profile: { ...profileInputs } }
+    try {
+      const response = await Request.post(user.updateUrl, { user: updatedUser });
+      updateUser({ ...response.user });
+      showNotification('Profile updated!', 'success');
+    } catch(errors) {
+      setErrors(errors.errors);
+      showNotification('Error updating your profile', 'error');
+    }
+    hideLoading();
   }
 
   const genderOptions = () => user.profile.options.gender.map((value: string, index: number) => <MenuItem value={value} key={index}>{value}</MenuItem>);
@@ -62,9 +79,12 @@ const Profile: React.FC<ProfileProps> = ({ user, updateUser, loading }) => {
 
   return (
     <Container maxWidth="lg">
-      <Typography className={classes.pageTitle} component="h1" variant="h4" align="center">
+      <Typography className={classes.pageTitle} component="h1" variant="h4" align="left">
         Update Your Profile
       </Typography>
+      { errors.length > 0  &&
+        <AlertMessage errors={errors} />
+      }
       <form onSubmit={onSubmit}>
         <Grid container spacing={3} className={classes.gridContainer}>
           <Grid container item direction="column" xs={12} sm={6}>
@@ -136,7 +156,10 @@ const mapStateToProps = (state: Store) => ({
 });
 
 const mapDispatchToProps = {
-  updateUser
+  updateUser: userAction,
+  showLoading,
+  hideLoading,
+  showNotification
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
