@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme: Theme) =>
     wrapper: {
       margin: theme.spacing(1),
       position: 'relative',
-      textAlign: 'center'
     },
     buttonProgress: {
       color: 'red',
@@ -31,8 +30,9 @@ const LoadingButton: React.FC<LoadingButtonProps> =  ({ showLoading, children, c
     <div className={classes.wrapper}>
       <Button type="submit" variant="contained" disabled={showLoading} color={color}>
         { children }
+        {showLoading && <CircularProgress size={24} className={classes.buttonProgress} />}
       </Button>
-      {showLoading && <CircularProgress size={24} className={classes.buttonProgress} />}
+
     </div>
   )
 }
