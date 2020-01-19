@@ -10,18 +10,11 @@ export const hideLoading = (): actions.HideLoadingAction => {
 }
 
 export const showNotification = (message: string, severity: actions.NotificationSeverity) => {
-  return (dispatch: Function, state: Store) => {
-    const { ui } = state;
-    if (ui.showNotification) {
-      dispatch(hideNotification);
-    }
-
-    dispatch({
-      type: actions.SHOW_NOTIFICATION,
-      message,
-      severity
-    });
-  }
+  return {
+    type: actions.SHOW_NOTIFICATION,
+    message,
+    severity
+  };
 }
 
 export const hideNotification = () => {
