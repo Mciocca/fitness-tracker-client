@@ -17,8 +17,8 @@ import {
   Grid
 } from '@material-ui/core';
 import { connect } from 'react-redux';
-import LoadingButton from '../components/common/LoadingButton';
-import AlertMessage from '../components/common/AlertMessage';
+import LoadingButton from '../components/LoadingButton';
+import AlertMessage from '../components/AlertMessage';
 import { NotificationSeverity } from '../actions/actionTypes';
 
 interface ProfileProps {

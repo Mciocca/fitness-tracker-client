@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import AlertMessage from '../../../components/common/AlertMessage';
+import AlertMessage from '../../../components/AlertMessage';
 import { SignIn } from '../SignIn';
 
 describe('SignIn', () => {

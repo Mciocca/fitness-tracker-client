@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Close from '@material-ui/icons/Close';
 import { Snackbar, IconButton, createStyles, makeStyles, Theme } from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
-import { NotificationSeverity } from '../../actions/actionTypes';
+import { NotificationSeverity } from '../actions/actionTypes';
 import { useLocation } from 'react-router-dom';
 
 interface NotificationBar {

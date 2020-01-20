@@ -1,6 +1,6 @@
 import React from 'react';
 import Request from '../../utils/request';
-import AlertMessage from '../../components/common/AlertMessage';
+import AlertMessage from '../../components/AlertMessage';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';

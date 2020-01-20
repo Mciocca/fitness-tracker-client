@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Register } from '../Register';
-import AlertMessage from '../../../components/common/AlertMessage';
+import AlertMessage from '../../../components/AlertMessage';
 
 describe('Register Page', () => {
   beforeEach(() => {

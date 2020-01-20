@@ -6,7 +6,7 @@ import { Store } from '../reducers/types';
 import { hideNotification } from '../actions/uiActions';
 import { connect, ConnectedProps } from 'react-redux';
 import Profile from './Profile';
-import Notification from '../components/common/Notification';
+import Notification from '../components/Notification';
 
 const mapStateToProps = (state: Store) => ({
   user: state.user,
