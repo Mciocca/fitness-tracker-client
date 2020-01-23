@@ -9,6 +9,9 @@ const NavBarTitle = () => {
         <Route path="/dashboard/profile">
           <Typography variant="h6">Profile</Typography>
         </Route>
+        <Route path="/dashboard/goals">
+          <Typography variant="h6">Goals</Typography>
+        </Route>
         <Route path="/dashboard">
           <Typography variant="h6">Dashboard</Typography>
         </Route>

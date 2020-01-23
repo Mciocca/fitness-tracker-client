@@ -18,12 +18,16 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const NavBar: React.FC = () => {
+interface NavbarProps {
+  toggleDrawer: () => void
+}
+
+const NavBar: React.FC<NavbarProps> = ({toggleDrawer}) => {
   const classes = useStyles();
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton edge="start" color="inherit" >
+        <IconButton onClick={toggleDrawer} edge="start" color="inherit" >
           <MenuIcon/>
         </IconButton>
         <NavBarTitle />

@@ -1,4 +1,4 @@
-import React  from 'react';
+import React, { useState }  from 'react';
 import NavBar from '../components/NavBar';
 import { withRouter, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import Loading from '../components/Loading';
@@ -7,6 +7,8 @@ import { hideNotification } from '../actions/uiActions';
 import { connect, ConnectedProps } from 'react-redux';
 import Profile from './Profile';
 import Notification from '../components/Notification';
+import SideDrawer from '../components/SideDrawer';
+import Goals from './Goals';
 
 const mapStateToProps = (state: Store) => ({
   user: state.user,
@@ -23,9 +25,13 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 type Props = PropsFromRedux & RouteComponentProps
 
 const Dashboard: React.FC<Props> = ({ user, showLoading, notification, hideNotification }) => {
+  const [drawerOpen, updateDrawerOpen] = useState<boolean>(false);
+  const toggleDrawer = () => updateDrawerOpen(!drawerOpen);
+
   return (
     <div>
-      <NavBar />
+      <NavBar toggleDrawer={toggleDrawer} />
+      <SideDrawer open={drawerOpen} toggleClose={toggleDrawer} />
       <Notification
         hideNotification={hideNotification}
         message={notification.message}
@@ -35,6 +41,9 @@ const Dashboard: React.FC<Props> = ({ user, showLoading, notification, hideNotif
       <Switch>
         <Route path="/dashboard/profile">
           <Profile />
+        </Route>
+        <Route path="/dashboard/goals">
+          <Goals />
         </Route>
         <Route path="/dashboard">
           <h1>Hello {user.name}</h1>
