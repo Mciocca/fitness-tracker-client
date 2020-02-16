@@ -10,16 +10,13 @@ import {
   Theme,
   Container,
   TextField,
-  MenuItem,
-  Select,
-  FormControl,
-  InputLabel,
   Grid
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import LoadingButton from '../components/LoadingButton';
 import AlertMessage from '../components/AlertMessage';
 import { NotificationSeverity } from '../actions/actionTypes';
+import SelectInput from '../components/SelectInput';
 
 interface ProfileProps {
   user: User,
@@ -74,9 +71,6 @@ export const Profile: React.FC<ProfileProps> = ({ user, updateUser, showNotifica
     hideLoading();
   }
 
-  const genderOptions = () => user.profile.options.gender.map((value: string, index: number) => <MenuItem value={value} key={index}>{value}</MenuItem>);
-  const goalOptions = () => user.profile.options.goals.map((value: string, index: number) => <MenuItem value={value} key={index}>{value}</MenuItem>);
-
   return (
     <Container maxWidth="lg">
       <Typography className={classes.pageTitle} component="h1" variant="h4" align="left">
@@ -127,29 +121,36 @@ export const Profile: React.FC<ProfileProps> = ({ user, updateUser, showNotifica
               type="number"
               onChange={updateProfile}
               value={profileInputs.height || ''}/>
-            <FormControl className={classes.baseTopMargin}>
-              <InputLabel id="profile-fitness-goal">Fitness Goal</InputLabel>
-              <Select labelId="profile-fitness-goal" onChange={updateProfile} name="goal" defaultValue={user.profile.options.goals[0]} value={profileInputs.goal}>
-                {goalOptions()}
-              </Select>
-            </FormControl>
-            <FormControl className={classes.baseTopMargin}>
-              <InputLabel id="profile-gender">Gender</InputLabel>
-              <Select labelId="profile-gender" name="gender" value={profileInputs.gender} onChange={updateProfile} defaultValue={user.profile.options.gender[0]}>
-                {genderOptions()}
-              </Select>
-            </FormControl>
+            <SelectInput
+              label="Goal"
+              className={classes.baseTopMargin}
+              onChange={updateProfile}
+              selectorId="profile-fitness-goal"
+              name="goal"
+              options={user.profile.options.goals}
+              defaultValue={user.profile.goal as string}
+              value={profileInputs.goal as string} />
+            <SelectInput
+              label="Gender"
+              className={classes.baseTopMargin}
+              onChange={updateProfile}
+              selectorId="profile-gender"
+              name="gender"
+              defaultValue={user.profile.gender as string}
+              value={profileInputs.gender as string}
+              options={user.profile.options.gender} />
+          </Grid>
+          <Grid container item direction="column">
+            <LoadingButton showLoading={loading} color="primary">
+              Submit
+            </LoadingButton>
           </Grid>
         </Grid>
-        <LoadingButton showLoading={loading} color="primary">
-          Submit
-        </LoadingButton>
       </form>
     </Container>
   )
+
 }
-
-
 const mapStateToProps = (state: Store) => ({
   user: state.user,
   loading: state.ui.showLoading
