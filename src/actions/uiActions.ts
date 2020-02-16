@@ -1,5 +1,4 @@
 import * as actions from './actionTypes';
-import { Store } from '../reducers/types';
 
 export const showLoading = (): actions.ShowLoadingAction => {
   return { type: actions.SHOW_LOADING };

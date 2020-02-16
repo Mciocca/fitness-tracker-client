@@ -10,11 +10,13 @@ export interface User {
   updateUrl: string
 }
 
+export type Gender = 'Male' | 'Female';
+export type FitnessGoals = 'Lose weight' | 'Gain weight' | 'Maintain weight';
 export interface Profile {
   age?: number,
   startingWeight?: number,
-  goal?: string,
-  gender?: string,
+  goal?: FitnessGoals,
+  gender?: Gender,
   height?: number,
   options: {
     gender: string[],
