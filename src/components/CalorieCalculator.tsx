@@ -58,13 +58,13 @@ const CalorieCalculator: React.FC<CalorieCalculatorProps> = ({ profile }) => {
   const weightInKilos = form.weight as number * 0.4535924;
   const heightInCentimeters = form.height as number * 2.54;
   const BMRModifier = form.gender === 'Male' ? 5 : -161;
-  const age = profile.age as number;
+  const age = form.age as number;
   const BMR = Math.round((10 * weightInKilos) + (6.25 * heightInCentimeters) - (5 * age) + BMRModifier);
   const TDEE = Math.round(BMR * activityLevels[form.activityLevel]);
   const goalCalories = TDEE + goalModifiers[form.goal];
 
   const onFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  updateFormInputs({...form, [event.target.name]: event.target.value});
+    updateFormInputs({...form, [event.target.name]: event.target.value});
   }
 
   return (
