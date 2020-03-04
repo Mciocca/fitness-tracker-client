@@ -13,7 +13,7 @@ import Goals from './Goals';
 const mapStateToProps = (state: Store) => ({
   user: state.user,
   loading: state.ui.loading,
-  notification: { ...state.ui.notification, showNotification: state.ui.showNotification }
+  notification: state.ui.notification
 });
 
 const mapDispatchToProps = {
@@ -36,7 +36,7 @@ const Dashboard: React.FC<Props> = ({ user, loading, notification, hideNotificat
         hideNotification={hideNotification}
         message={notification.message}
         severity={notification.severity}
-        open={notification.showNotification} />
+      />
       <Loading loading={loading} />
       <Switch>
         <Route path="/dashboard/profile">

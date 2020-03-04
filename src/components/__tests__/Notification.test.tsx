@@ -29,24 +29,22 @@ describe('Notification', () => {
     jest.restoreAllMocks();
   });
 
-  it('is visible when open prop is false', () => {
+  it('is visible when a notification message exists', () => {
     const wrapper = mount(
       <Notification
         message="hello"
         severity="info"
-        open={true}
         hideNotification={hideNotification} />
     );
 
     expect(wrapper.find('.MuiSnackbar-root').length).toBe(1);
   });
 
-  it('is visible when open prop is false', () => {
+  it('is not visible when there is not a notification message', () => {
     const wrapper = mount(
       <Notification
-        message="hello"
+        message={null}
         severity="info"
-        open={false}
         hideNotification={hideNotification} />
     );
 
@@ -59,7 +57,6 @@ describe('Notification', () => {
       <Notification
         message="hello"
         severity="info"
-        open={false}
         hideNotification={hideNotification} />
     )
 

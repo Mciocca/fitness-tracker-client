@@ -6,9 +6,8 @@ import { NotificationSeverity } from '../actions/actionTypes';
 import { useLocation } from 'react-router-dom';
 
 interface NotificationBar {
-  message: string,
+  message: string | null,
   severity: NotificationSeverity,
-  open: boolean,
   hideNotification: () => {}
 }
 
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const Notification: React.FC<NotificationBar> = ({ message, severity, open, hideNotification }) => {
+const Notification: React.FC<NotificationBar> = ({ message, severity, hideNotification }) => {
   const location = useLocation();
   const classes = useStyles();
   useEffect(() => {
@@ -49,7 +48,7 @@ const Notification: React.FC<NotificationBar> = ({ message, severity, open, hide
       }}
       anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
       onClose={handleClose}
-      open={open}
+      open={!!message}
       message={message}
       action={
         <IconButton color="inherit" aria-label="close" onClick={handleClose}>
