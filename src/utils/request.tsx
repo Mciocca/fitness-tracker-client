@@ -31,6 +31,26 @@ export default class Request {
       return Promise.reject(JSON_ERROR);
     }
   }
+
+  public static async patch(url: string, body: Object): Promise<any> {
+    const response = await fetch(url, {
+      credentials: 'include',
+      method: 'PATCH',
+      headers: {
+        'Connection': 'keep-alive',
+        'Content-Type': 'application/json',
+        'csrf-token': csrfToken() || ''
+      },
+      body: JSON.stringify({ ...body })
+    });
+
+    try {
+      const data = await response.json();
+      return handleResponse(response, data);
+    } catch {
+      return Promise.reject(JSON_ERROR);
+    }
+  }
 }
 
 const csrfToken = (): string | undefined => {

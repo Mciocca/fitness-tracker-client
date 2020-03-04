@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Button, CircularProgress } from '@material-ui/core';
 
 interface LoadingButtonProps {
-  showLoading: boolean,
+  loading: boolean,
   color: 'primary' | 'secondary',
 }
 
@@ -24,13 +24,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const LoadingButton: React.FC<LoadingButtonProps> =  ({ showLoading, children, color  }) => {
+const LoadingButton: React.FC<LoadingButtonProps> =  ({ loading, children, color  }) => {
   const classes = useStyles();
   return (
     <div className={classes.wrapper}>
-      <Button type="submit" variant="contained" disabled={showLoading} color={color}>
+      <Button type="submit" variant="contained" disabled={loading} color={color}>
         { children }
-        {showLoading && <CircularProgress size={24} className={classes.buttonProgress} />}
+        {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
       </Button>
 
     </div>

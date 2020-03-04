@@ -12,7 +12,7 @@ import Goals from './Goals';
 
 const mapStateToProps = (state: Store) => ({
   user: state.user,
-  showLoading: state.ui.showLoading,
+  loading: state.ui.loading,
   notification: { ...state.ui.notification, showNotification: state.ui.showNotification }
 });
 
@@ -24,7 +24,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>
 type Props = PropsFromRedux & RouteComponentProps
 
-const Dashboard: React.FC<Props> = ({ user, showLoading, notification, hideNotification }) => {
+const Dashboard: React.FC<Props> = ({ user, loading, notification, hideNotification }) => {
   const [drawerOpen, updateDrawerOpen] = useState<boolean>(false);
   const toggleDrawer = () => updateDrawerOpen(!drawerOpen);
 
@@ -37,7 +37,7 @@ const Dashboard: React.FC<Props> = ({ user, showLoading, notification, hideNotif
         message={notification.message}
         severity={notification.severity}
         open={notification.showNotification} />
-      <Loading showLoading={showLoading} />
+      <Loading loading={loading} />
       <Switch>
         <Route path="/dashboard/profile">
           <Profile />

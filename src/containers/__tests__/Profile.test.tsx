@@ -1,8 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Profile } from '../Profile';
+import { User } from '../../reducers/types';
 
-const user = {
+const user: User = {
   id: 1,
   firstName: 'test',
   lastName: 'user',
@@ -22,10 +23,7 @@ const user = {
   }
 }
 
-let showNotificationStub =  jest.fn();
 let updateUser = jest.fn();
-let showLoading = jest.fn();
-let hideLoading = jest.fn();
 
 function flushPromises() {
   return new Promise(resolve => setImmediate(resolve));
@@ -34,7 +32,6 @@ function flushPromises() {
 describe('profile', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
-    showNotificationStub.mockClear();
     updateUser.mockClear();
   });
 
@@ -44,43 +41,14 @@ describe('profile', () => {
     const wrapper = mount(
       <Profile
         user={user}
-        showNotification={showNotificationStub}
-        showLoading={showLoading}
         updateUser={updateUser}
-        hideLoading={hideLoading}
-        loading={false}
+        loading={0}
       />
     );
     wrapper.find('form').simulate('submit');
 
-    return flushPromises().then(() => {
-      expect(showLoading).toHaveBeenCalled();
-      expect(showNotificationStub).toHaveBeenCalledWith('Profile updated!', 'success');
-      expect(hideLoading).toHaveBeenCalled();
-    });
-  });
-
-  // TODO: figure out why I getting error about act() despite enzyme docs saying this should not be an issue
-  it('dispatches an error notification when updating fails', () => {
-    fetchMock.mockResponseOnce('Bad request', {status: 400});
-
-    const wrapper = mount(
-      <Profile
-        user={user}
-        showNotification={showNotificationStub}
-        showLoading={showLoading}
-        updateUser={updateUser}
-        hideLoading={hideLoading}
-        loading={false}
-      />
-    );
-
-    wrapper.find('form').simulate('submit');
-
-    return flushPromises().then(() => {
-      expect(showLoading).toHaveBeenCalled();
-      expect(showNotificationStub).toHaveBeenCalledWith('Error updating your profile', 'error');
-      expect(hideLoading).toHaveBeenCalled();
+    return flushPromises().then(() => {;
+      expect(updateUser).toHaveBeenCalledWith(user);
     });
   });
 });

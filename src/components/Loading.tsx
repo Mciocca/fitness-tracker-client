@@ -2,13 +2,13 @@ import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 interface LoadingProps  {
-  showLoading: boolean
+  loading: boolean
 }
 
-const Loading: React.FC<LoadingProps> = ({ showLoading }) => {
+const Loading: React.FC<LoadingProps> = ({ loading }) => {
   return (
     <div style={{height: '5px'}}>
-      { showLoading && <LinearProgress /> }
+      { loading && <LinearProgress /> }
     </div>
   );
 }

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import Request from "../utils/request"
-import { userAction } from '../actions/userActions';
-import { showLoading, hideLoading, showNotification } from '../actions/uiActions';
+import { updateUserAction } from '../actions/userActions';
 import { User, Store } from '../reducers/types';
 import {
   Typography,
@@ -14,16 +12,11 @@ import {
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import LoadingButton from '../components/LoadingButton';
-import AlertMessage from '../components/AlertMessage';
-import { NotificationSeverity } from '../actions/actionTypes';
 import SelectInput from '../components/SelectInput';
 
 interface ProfileProps {
   user: User,
   loading: boolean,
-  showNotification: (message: string, severity: NotificationSeverity) => void,
-  showLoading: () => void,
-  hideLoading: () => void,
   updateUser: (user: User) => void
 }
 
@@ -42,11 +35,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const Profile: React.FC<ProfileProps> = ({ user, updateUser, showNotification, showLoading, hideLoading, loading }) => {
+export const Profile: React.FC<ProfileProps> = ({ user, updateUser, loading }) => {
   const classes = useStyles();
   const [userInputs, setUser] = useState({ ...user });
   const [profileInputs, setProfile] = useState({ ...user.profile })
-  const [errors, setErrors] = useState<string[]>([]);
 
   const updateUserFields = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setUser({...userInputs, [event.target.name]: event.target.value });
@@ -58,17 +50,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, updateUser, showNotifica
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<any> => {
     event.preventDefault();
-    showLoading();
-    const updatedUser = { ...userInputs, profile: { ...profileInputs } }
-    try {
-      const response = await Request.post(user.updateUrl, { user: updatedUser });
-      updateUser({ ...response.user });
-      showNotification('Profile updated!', 'success');
-    } catch(errors) {
-      setErrors(errors.errors);
-      showNotification('Error updating your profile', 'error');
-    }
-    hideLoading();
+    updateUser({ ...userInputs, profile: { ...profileInputs } })
   }
 
   return (
@@ -76,9 +58,6 @@ export const Profile: React.FC<ProfileProps> = ({ user, updateUser, showNotifica
       <Typography className={classes.pageTitle} component="h1" variant="h4" align="left">
         Update Your Profile
       </Typography>
-      { errors.length > 0  &&
-        <AlertMessage errors={errors} />
-      }
       <form onSubmit={onSubmit}>
         <Grid container spacing={3} className={classes.gridContainer}>
           <Grid container item direction="column" xs={12} sm={6}>
@@ -141,7 +120,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, updateUser, showNotifica
               options={user.profile.options.gender} />
           </Grid>
           <Grid container item direction="column">
-            <LoadingButton showLoading={loading} color="primary">
+            <LoadingButton loading={loading} color="primary">
               Submit
             </LoadingButton>
           </Grid>
@@ -149,18 +128,15 @@ export const Profile: React.FC<ProfileProps> = ({ user, updateUser, showNotifica
       </form>
     </Container>
   )
-
 }
+
 const mapStateToProps = (state: Store) => ({
   user: state.user,
-  loading: state.ui.showLoading
+  loading: state.ui.loading
 });
 
 const mapDispatchToProps = {
-  updateUser: userAction,
-  showLoading,
-  hideLoading,
-  showNotification
+  updateUser: updateUserAction,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
