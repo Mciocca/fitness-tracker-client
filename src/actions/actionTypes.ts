@@ -1,3 +1,5 @@
+import { User } from '../reducers/types';
+
 // bootstrap
 export const CONFIGURATION = 'CONFIGURATION';
 export interface ConfigAction {
@@ -35,5 +37,18 @@ export type UiActionTypes = ShowNotificationAction | HideNotificationAction | Sh
 
 //user
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
-export const UPDATE_USER = 'UPDATE_USER';
 export const USER = 'USER';
+export const UPDATE_USER_BEGIN = 'UPDATE_USER_BEGIN';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE';
+export interface UpdateUserAction {
+  type: typeof UPDATE_USER_BEGIN | typeof UPDATE_USER_SUCCESS | typeof UPDATE_USER_FAILURE,
+  user?: User,
+  errors?: string[]
+}
+
+export interface UserAction {
+  type: typeof USER,
+  user: User
+}
+export type UserActions = UpdateUserAction | UserAction;

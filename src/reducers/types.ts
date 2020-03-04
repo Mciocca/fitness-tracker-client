@@ -43,8 +43,7 @@ export interface UserState {
 }
 
 export interface UIState {
-  showLoading: boolean,
-  showNotification: boolean,
+  loading: boolean,
   notification: {
     message: string,
     severity: NotificationSeverity
