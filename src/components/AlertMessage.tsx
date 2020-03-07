@@ -12,12 +12,13 @@ const AlertMessage: React.SFC<AlertProps> = ({ errors }) => {
     return () => {
       dispatch(clearErrors);
     }
-  });
+  }, [dispatch]);
 
   const errorList = () => {
     return errors.map((err) => <li key={err}>{err}</li>);
   }
 
+  if (errors.length === 0) return null;
   return (
     <div className="error-alert">
       <h3>There was an issue with your request</h3>

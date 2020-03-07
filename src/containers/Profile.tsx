@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { updateUserAction } from '../actions/userActions';
-import { User, Store } from '../reducers/types';
+import { User, Store, UserState } from '../reducers/types';
 import {
   Typography,
   makeStyles,
@@ -13,9 +13,11 @@ import {
 import { connect } from 'react-redux';
 import LoadingButton from '../components/LoadingButton';
 import SelectInput from '../components/SelectInput';
+import AlertMessage from '../components/AlertMessage';
 
 interface ProfileProps {
   user: User,
+  errors: UserState["errors"],
   loading: boolean,
   updateUser: (user: User) => void
 }
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const Profile: React.FC<ProfileProps> = ({ user, updateUser, loading }) => {
+export const Profile: React.FC<ProfileProps> = ({ user, updateUser, loading, errors=[] }) => {
   const classes = useStyles();
   const [userInputs, setUser] = useState({ ...user });
   const [profileInputs, setProfile] = useState({ ...user.profile })
@@ -58,6 +60,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, updateUser, loading }) =
       <Typography className={classes.pageTitle} component="h1" variant="h4" align="left">
         Update Your Profile
       </Typography>
+      <AlertMessage errors={errors} />
       <form onSubmit={onSubmit}>
         <Grid container spacing={3} className={classes.gridContainer}>
           <Grid container item direction="column" xs={12} sm={6}>
@@ -132,6 +135,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, updateUser, loading }) =
 
 const mapStateToProps = (state: Store) => ({
   user: state.user,
+  errors: state.user.errors,
   loading: state.ui.loading
 });
 

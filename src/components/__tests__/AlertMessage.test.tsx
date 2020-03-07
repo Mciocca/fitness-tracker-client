@@ -2,7 +2,15 @@ import React from 'react';
 import { shallow } from  'enzyme';
 import AlertMessage from '../AlertMessage';
 
+jest.mock('react-redux', () => ({
+  useDispatch: () => {}
+}))
+
 describe('AlertMessage component', () => {
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
+
   it('renders errors as expected', () => {
     const errors = ['you broke it', 'it was already broken'];
     const wrapper = shallow(<AlertMessage errors={errors} />)

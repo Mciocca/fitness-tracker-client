@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { Profile } from '../Profile';
 import { User } from '../../reducers/types';
 
@@ -25,10 +25,6 @@ const user: User = {
 
 let updateUser = jest.fn();
 
-function flushPromises() {
-  return new Promise(resolve => setImmediate(resolve));
-}
-
 describe('profile', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
@@ -38,17 +34,16 @@ describe('profile', () => {
   it('dispatches a success notification when updating is succesful', () => {
     fetchMock.mockResponseOnce(JSON.stringify({ user: 'it worked!' }));
 
-    const wrapper = mount(
+    const wrapper = shallow(
       <Profile
         user={user}
+        errors={[]}
         updateUser={updateUser}
-        loading={0}
+        loading={false}
       />
     );
-    wrapper.find('form').simulate('submit');
+    wrapper.find('form').simulate('submit', { preventDefault: () => {}});
 
-    return flushPromises().then(() => {;
-      expect(updateUser).toHaveBeenCalledWith(user);
-    });
+    expect(updateUser).toHaveBeenCalledWith(user);
   });
 });
