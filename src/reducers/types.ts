@@ -38,8 +38,8 @@ export interface UserReducerAction {
   user?: User
 }
 
-export interface UserState {
-  user?: User
+export interface UserState extends User {
+  errors: string[]
 }
 
 export interface UIState {
@@ -51,7 +51,7 @@ export interface UIState {
 }
 
 export interface Store  {
-  user: User,
+  user: UserState,
   ui: UIState
   config: ConfigurationState
 }

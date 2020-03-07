@@ -22,7 +22,7 @@ export const updateUserAction = (user: User) => {
       const response = await Request.patch(user.updateUrl, { user });
       dispatch({ type: actions.UPDATE_USER_SUCCESS, user: response, notification: { message: "Update profile succesfully!", severity: 'success'} });
     } catch(errors) {
-      dispatch({ type: actions.UPDATE_USER_FAILURE, errors, notification: { message: "Error updating your profile", severity: 'error'} });
+      dispatch({ type: actions.UPDATE_USER_FAILURE, user, errors: errors.errors, notification: { message: "Error updating your profile", severity: 'error'} });
     }
   }
 }

@@ -2,6 +2,8 @@ import { User } from '../reducers/types';
 
 // bootstrap
 export const CONFIGURATION = 'CONFIGURATION';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export type  ClearErrorsAction = { type: typeof CLEAR_ERRORS }
 export interface ConfigAction {
   type: typeof CONFIGURATION,
   configuration: any
@@ -43,7 +45,7 @@ export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE';
 export interface UpdateUserAction {
   type: typeof UPDATE_USER_BEGIN | typeof UPDATE_USER_SUCCESS | typeof UPDATE_USER_FAILURE,
-  user?: User,
+  user: User,
   errors?: string[]
 }
 
@@ -51,4 +53,4 @@ export interface UserAction {
   type: typeof USER,
   user: User
 }
-export type UserActions = UpdateUserAction | UserAction;
+export type UserActions = UpdateUserAction | UserAction | ClearErrorsAction;
