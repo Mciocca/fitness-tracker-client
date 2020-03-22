@@ -24,9 +24,6 @@ interface ProfileProps {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    gridContainer: {
-      marginBottom: theme.spacing(3)
-    },
     baseTopMargin: {
       marginTop: theme.spacing(3)
     },
@@ -62,7 +59,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, updateUser, loading, err
       </Typography>
       <AlertMessage errors={errors} />
       <form onSubmit={onSubmit}>
-        <Grid container spacing={3} className={classes.gridContainer}>
+        <Grid container spacing={3}>
           <Grid container item direction="column" xs={12} sm={6}>
             <TextField
               label="First Name"

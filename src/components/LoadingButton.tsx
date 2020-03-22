@@ -10,7 +10,7 @@ interface LoadingButtonProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     wrapper: {
-      margin: theme.spacing(1),
+      marginTop: theme.spacing(3),
       position: 'relative',
     },
     buttonProgress: {
