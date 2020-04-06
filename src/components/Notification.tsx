@@ -54,9 +54,7 @@ const Notification: React.FC<NotificationBar> = ({ message, severity, hideNotifi
         <IconButton color="inherit" aria-label="close" onClick={handleClose}>
           <Close color="inherit"/>
         </IconButton>
-      }>
-
-    </Snackbar>
+      }/>
   )
 };
 
