@@ -51,8 +51,8 @@ export interface UIState {
 }
 
 export interface ExerciseSearchResult {
-  value: number,
-  label: string,
+  id: number,
+  name: string,
   muscleGroup: string
 }
 
