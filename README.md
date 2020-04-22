@@ -1,3 +1,9 @@
+My main purpose for creating this is to stay up to date with React and learn typescript.
+It does not have as much test coverage as something that I would write for production.
+
+Currently it needs a refactor to how types are declared.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
