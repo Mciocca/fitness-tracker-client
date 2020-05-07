@@ -12,13 +12,15 @@ const NavBarTitle = () => {
         <Route path="/dashboard/goals">
           <Typography variant="h6">Goals</Typography>
         </Route>
+        <Route path="/dashboard/workouts/new">
+          <Typography variant="h6">Workouts</Typography>
+        </Route>
         <Route path="/dashboard">
           <Typography variant="h6">Dashboard</Typography>
         </Route>
       </Switch>
     </span>
-  )
-}
-
+  );
+};
 
 export default NavBarTitle;
