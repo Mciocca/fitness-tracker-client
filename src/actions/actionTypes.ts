@@ -54,3 +54,8 @@ export interface UserAction {
   user: User
 }
 export type UserActions = UpdateUserAction | UserAction | ClearErrorsAction;
+
+// workout
+export const CREATE_WORKOUT_BEGIN  = 'CREATE_WORKOUT_BEGIN';
+export const CREATE_WORKOUT_SUCCESS = 'CREATE_WORKOUT_SUCCESS';
+export const CREATE_WORKOUT_FAILURE = 'CREATE_WORKOUT_FAILURE';

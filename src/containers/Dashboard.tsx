@@ -1,6 +1,11 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 import NavBar from '../components/NavBar';
-import { withRouter, Route, RouteComponentProps, Switch } from 'react-router-dom';
+import {
+  withRouter,
+  Route,
+  RouteComponentProps,
+  Switch,
+} from 'react-router-dom';
 import Loading from '../components/Loading';
 import { Store } from '../reducers/types';
 import { hideNotification } from '../actions/uiActions';
@@ -9,22 +14,28 @@ import Profile from './Profile';
 import Notification from '../components/Notification';
 import SideDrawer from '../components/SideDrawer';
 import Goals from './Goals';
+import CreateWorkout from './Workouts/CreateWorkout';
 
 const mapStateToProps = (state: Store) => ({
   user: state.user,
   loading: state.ui.loading,
-  notification: state.ui.notification
+  notification: state.ui.notification,
 });
 
 const mapDispatchToProps = {
-  hideNotification
-}
+  hideNotification,
+};
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>
-type Props = PropsFromRedux & RouteComponentProps
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type Props = PropsFromRedux & RouteComponentProps;
 
-const Dashboard: React.FC<Props> = ({ user, loading, notification, hideNotification }) => {
+const Dashboard: React.FC<Props> = ({
+  user,
+  loading,
+  notification,
+  hideNotification,
+}) => {
   const [drawerOpen, updateDrawerOpen] = useState<boolean>(false);
   const toggleDrawer = () => updateDrawerOpen(!drawerOpen);
 
@@ -39,6 +50,9 @@ const Dashboard: React.FC<Props> = ({ user, loading, notification, hideNotificat
       />
       <Loading loading={loading} />
       <Switch>
+        <Route path="/dashboard/workouts/new">
+          <CreateWorkout />
+        </Route>
         <Route path="/dashboard/profile">
           <Profile />
         </Route>
@@ -51,6 +65,6 @@ const Dashboard: React.FC<Props> = ({ user, loading, notification, hideNotificat
       </Switch>
     </div>
   );
-}
+};
 
 export default withRouter(connector(Dashboard));

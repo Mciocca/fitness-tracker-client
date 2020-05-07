@@ -26,9 +26,10 @@ export interface Profile {
 export interface ConfigurationLinks {
   user_url: string,
   authentication_url: string,
-  registration_url: string
+  registration_url: string,
+  exercise_url: string,
+  workouts_url: string
 }
-
 export interface ConfigurationState {
   links: ConfigurationLinks
 }
@@ -50,8 +51,15 @@ export interface UIState {
   }
 }
 
+export interface ExerciseSearchResult {
+  id: number,
+  name: string,
+  muscleGroup: string
+}
+
 export interface Store  {
   user: UserState,
   ui: UIState
   config: ConfigurationState
 }
+

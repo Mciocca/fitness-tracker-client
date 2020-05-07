@@ -1,11 +1,13 @@
 import { ConfigurationState } from "./types";
 import * as ActionTypes from '../actions/actionTypes';
 
-const defaultState = {
+const defaultState: ConfigurationState = {
   links: {
     user_url: '',
     authentication_url: '',
-    registration_url: ''
+    registration_url: '',
+    exercise_url: '',
+    workouts_url: ''
   }
 }
 export default (state: ConfigurationState=defaultState, action: ActionTypes.ConfigAction) => {
