@@ -6,7 +6,8 @@ const defaultState: ConfigurationState = {
     user_url: '',
     authentication_url: '',
     registration_url: '',
-    exercise_url: ''
+    exercise_url: '',
+    workouts_url: ''
   }
 }
 export default (state: ConfigurationState=defaultState, action: ActionTypes.ConfigAction) => {

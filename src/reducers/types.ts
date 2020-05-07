@@ -27,7 +27,8 @@ export interface ConfigurationLinks {
   user_url: string,
   authentication_url: string,
   registration_url: string,
-  exercise_url: string
+  exercise_url: string,
+  workouts_url: string
 }
 export interface ConfigurationState {
   links: ConfigurationLinks
