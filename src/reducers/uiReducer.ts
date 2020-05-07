@@ -11,7 +11,7 @@ const defaultState: UIState = {
 };
 
 export default (state: UIState=defaultState, action: any): UIState => {
-  const { loading } = getLoadingState(state, action);
+  const loading  = getLoadingState(state, action);
   const { notification } = getNotificationState(state, action);
 
   return { loading, notification };
@@ -24,8 +24,7 @@ const getLoadingState = (state: UIState, action: any) => {
     requestCount--;
   }
 
-  state.loading = requestCount > 0;
-  return state;
+  return requestCount > 0;
 }
 
 
