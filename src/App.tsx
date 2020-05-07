@@ -14,7 +14,7 @@ interface AppProps {
 const App: React.FC<AppProps> = ({ setConfiguration, config }) => {
   useEffect(() => {
     setConfiguration(config);
-  }, [])
+  }, [config, setConfiguration])
 
   return (
     <div className="App">
