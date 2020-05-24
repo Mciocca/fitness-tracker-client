@@ -43,12 +43,13 @@ export interface UserState extends User {
   errors: string[];
 }
 
+export interface Notification {
+  message: string | null;
+  severity: NotificationSeverity;
+}
 export interface UIState {
   loading: boolean;
-  notification: {
-    message: string | null;
-    severity: NotificationSeverity;
-  };
+  notification: Notification;
 }
 
 export interface ExerciseSearchResult {
@@ -76,16 +77,16 @@ export interface Exercise {
   muscleGroup: string;
 }
 
-interface StoreWorkouts extends Workout {
+export interface StoreWorkouts extends Workout {
   [key: number]: Workout;
   errors: string[];
 }
 
-interface StoreWorkoutSets {
+export interface StoreWorkoutSets {
   [key: number]: WorkoutSet;
 }
 
-interface StoreExercises {
+export interface StoreExercises {
   [key: number]: Exercise;
 }
 

@@ -1,10 +1,16 @@
 import ui from './uiReducer';
 import user from './userReducer';
 import config from './configurationReducer';
-import { combineReducers } from "redux";
+import workouts from './workoutReducer';
+import exercises from './exerciseReducer';
+import workoutSets from './workoutSetReducer';
+import { combineReducers } from 'redux';
 
 export default combineReducers({
   ui,
   user,
-  config
+  config,
+  workouts,
+  exercises,
+  workoutSets,
 });

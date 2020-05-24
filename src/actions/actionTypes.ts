@@ -1,4 +1,4 @@
-import { User } from '../reducers/types';
+import * as reducerTypes from '../reducers/types';
 
 // bootstrap
 export const CONFIGURATION = 'CONFIGURATION';
@@ -52,13 +52,13 @@ export interface UpdateUserAction {
     | typeof UPDATE_USER_BEGIN
     | typeof UPDATE_USER_SUCCESS
     | typeof UPDATE_USER_FAILURE;
-  user: User;
+  user: reducerTypes.User;
   errors?: string[];
 }
 
 export interface UserAction {
   type: typeof USER;
-  user: User;
+  user: reducerTypes.User;
 }
 export type UserActions = UpdateUserAction | UserAction | ClearErrorsAction;
 
@@ -67,10 +67,35 @@ export const CREATE_WORKOUT_BEGIN = 'CREATE_WORKOUT_BEGIN';
 export const CREATE_WORKOUT_SUCCESS = 'CREATE_WORKOUT_SUCCESS';
 export const CREATE_WORKOUT_FAILURE = 'CREATE_WORKOUT_FAILURE';
 
-export interface workoutAction {}
+type WorkoutActionTypes =
+  | typeof CREATE_WORKOUT_BEGIN
+  | typeof CREATE_WORKOUT_SUCCESS
+  | typeof CREATE_WORKOUT_FAILURE
+  | typeof CLEAR_ERRORS;
+
+export interface WorkoutAction {
+  type: WorkoutActionTypes;
+  workouts: reducerTypes.StoreWorkouts;
+  errors: string[];
+  notification?: reducerTypes.Notification;
+}
 
 //exercise
 export const CREATE_EXERCISE_SUCCESS = 'CREATE_EXERCISE_SUCCESS';
 
+type ExerciseActionTypes = typeof CREATE_EXERCISE_SUCCESS;
+
+export interface ExerciseAction {
+  type: ExerciseActionTypes;
+  exercises: reducerTypes.StoreExercises;
+}
+
 //workoutSet
 export const CREATE_WORKOUTSET_SUCCESS = 'CREATE_WORKOUTSET_SUCCESS';
+
+type WorkoutSetActionTypes = typeof CREATE_WORKOUTSET_SUCCESS;
+
+export interface WorkoutSetAction {
+  type: WorkoutSetActionTypes;
+  workoutSets: reducerTypes.StoreWorkoutSets;
+}
