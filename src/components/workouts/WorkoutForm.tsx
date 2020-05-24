@@ -8,7 +8,7 @@ import {
   Paper,
 } from '@material-ui/core';
 import LoadingButton from '../LoadingButton';
-import { ExerciseSearchResult, User } from '../../reducers/types';
+import { ExerciseSearchResult, User, Workout } from '../../reducers/types';
 import ExerciseSearch from '../ExerciseSearch';
 import ExerciseSets from '../ExerciseSets';
 import DateFnsUtils from '@date-io/date-fns';
@@ -16,13 +16,6 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-
-interface Workout {
-  date: Date | null;
-  title: string;
-  notes: string;
-  weight?: number;
-}
 
 interface WorkOutFormProps {
   onSubmit: (workoutData: any) => void;
