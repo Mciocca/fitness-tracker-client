@@ -10,7 +10,7 @@ export default (
 ) => {
   switch (action.type) {
     case ActionTypes.CREATE_WORKOUT_SUCCESS:
-      return { ...state, ...action.workouts };
+      return { ...state, ...action.workouts, errors: [] };
 
     case ActionTypes.CREATE_WORKOUT_FAILURE:
       return { ...state, errors: action.errors };
